@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs')%>
+    <div class="heading" id="browse-heading">
+        <span><h2>Select any flashcard set to study!</h2></span>
+    </div>
+        <div class="browse-container">
+            <%if(sets.length) {%>
+                <%sets.forEach(set=>{%>
+                    <a href="/flashcards/set/<%= set._id %>">
+                        <div class="ind-set" id="<%= set._id %>" >
+                        <h2><%= set.name%></h2>
+                        <p>Course: <%= set.course%></p>
+                        <p>Instructor: <%= set.instructor%></p>
+                    </div>
+                </a>
+               <% });
+            } else {%>
+                <p>There are no flashcard sets to display.</p>
+            <%}%>
+        </div>
+
+
+
+
+<%- include('../partials/footer.ejs')%>
+
+  
+ 

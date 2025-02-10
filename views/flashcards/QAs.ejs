@@ -1,0 +1,30 @@
+<%- include('../partials/header.ejs')%>
+
+<section class="QAs">
+<h1 class="title">Set: <%=set.name%><button class="qa-button"><a href="/flashcards/sets/editSet/<%=set._id%>">Edit</a></button></h1>
+    <div class = "container" id="QAs">
+            <%flashcardss.forEach(qa=>{%>
+                <div class="item-container">
+                    <div class="profile-button-container">
+                        <form>
+                            <button class="qa-button"><a href="/flashcards/sets/editCard/<%=qa._id%>">Edit</a></button>
+                        </form>
+                        <form>
+                            <button class= "qa-button" type ="submit" formmethod="POST" formaction="/flashcards/deleteCard/<%=qa._id%>">Delete</button>
+                        </form>
+                    </div>
+                    
+                    <h2>Question: <%= qa.question%></h2>
+                    <p>Answer: <%= qa.answer%></p>
+                </div>
+           <% });%>
+           <div class="item-container">
+            <a href="/flashcards/newSingleCard/<%=set._id%>"><button class= "qa-button">add new card</button></a>
+           </div>
+    </div>
+</section>
+
+
+<%- include('../partials/footer.ejs')%>
+
+  

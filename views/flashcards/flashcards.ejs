@@ -1,0 +1,90 @@
+<%- include('../partials/header.ejs') %>
+  <script src="/javascript/bundle_flashcards.js"></script>
+  <link rel="stylesheet" href="/css/styles_flashcards.css">
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <body>
+    <main>
+      <div id="container">
+        <label>
+          <h2>Group 7 Demo</h2>
+          <div>
+            <strong>Start on back of card</strong>
+            <md-checkbox id="showAnswerCheckbox" onclick="updateCard() "></md-checkbox>
+          </div>
+        </label>
+
+        <div class="flashcard" onclick="flipCard()">
+          <div class="card" id="flashcard">
+            <div class="front" id="question">Click to see question/answer</div>
+            <div class="back" id="answer">Click to see question/answer</div>
+          </div>
+        </div>
+
+        <div id="buttons">
+          <md-outlined-button onclick="back()">Back</md-outlined-button>
+          <md-filled-button onclick="next()">Next</md-filled-button>
+        </div>
+      </div>
+
+      <script>
+        var cards = <%-JSON.stringify(cards)%>;
+        var currentIndex = 0;
+
+        function updateCard() {
+          var showAnswer = document.getElementById('showAnswerCheckbox').checked;
+          var questionElement = document.getElementById('question');
+          var answerElement = document.getElementById('answer');
+          var flashcard = document.getElementById('flashcard');
+
+          // questionElement.innerHTML = cards[currentIndex].question;
+          // answerElement.innerHTML = cards[currentIndex].answer;
+
+          const showAnswerCheckbox = document.getElementById('showAnswerCheckbox');
+
+
+          if (currentIndex < cards.length) {
+            if (showAnswerCheckbox.checked && flashcard.classList.contains('flipped') || (!showAnswerCheckbox.checked && !flashcard.classList.contains('flipped'))) {
+              questionElement.textContent = cards[currentIndex].question;
+              answerElement.textContent = cards[currentIndex].answer;
+            } else if (showAnswerCheckbox.checked) {
+              answerElement.textContent = cards[currentIndex].answer;
+              flipCard();
+              flashcard.addEventListener('transitionend', () => {
+                questionElement.textContent = cards[currentIndex].question;
+              });
+            } else {
+              questionElement.textContent = cards[currentIndex].question;
+              flipCard();
+              flashcard.addEventListener('transitionend', () => {
+                answerElement.textContent = cards[currentIndex].answer;
+              });
+
+
+            }
+          }
+        }
+
+        function flipCard() {
+          const flashcard = document.getElementById('flashcard');
+          flashcard.classList.toggle('flipped');
+        }
+
+        function next() {
+          currentIndex = (currentIndex + 1) % cards.length;
+          updateCard();
+        }
+
+        function back() {
+          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+          updateCard();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          updateCard();  // Initial display of card
+        });
+      </script>
+    </main>
+  </body>
+
+  <%- include('../partials/footer.ejs') %>

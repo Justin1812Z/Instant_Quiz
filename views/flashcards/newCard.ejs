@@ -1,0 +1,24 @@
+<%- include('../partials/header.ejs')%>
+
+<body>
+    <h1 id="new-card-h1">Create Flashcard</h1>
+    <form class="flashcard-form" id="flashcardForm" method="POST" action="/flashcards/newCard">
+        
+        <input type="hidden" id="setId" name="setId" value="<%= setId %>">
+
+
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" >
+
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" name="answer">
+
+        <input type="submit" value="Submit">
+        <button><a href="/user/profile">Done</a></button>
+    </form>
+    
+
+</body>
+
+
+<%- include('../partials/footer.ejs')%>

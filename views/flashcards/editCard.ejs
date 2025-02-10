@@ -1,0 +1,23 @@
+<%- include('../partials/header.ejs')%>
+
+<body>
+    <div class="form-container">
+        <h2>Edit Card%></h2>
+        <form id="flashCardForm" action="/flashcards/sets/editCard/<%=card._id%>" method="POST">
+            <div class="form-group">
+                <label for="question">Question:</label>
+                <input type="text" id="question" name="question" value="<%=card.question%>" required>
+            </div>
+            <div class="form-group">
+                <label for="answer">Answer:</label>
+                <input type="text" id="answer" name="answer" value="<%=card.answer%>" required>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<%- include('../partials/footer.ejs')%>

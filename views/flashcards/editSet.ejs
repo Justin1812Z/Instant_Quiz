@@ -1,0 +1,26 @@
+<%- include('../partials/header.ejs')%>
+
+<body>
+    <div class="form-container">
+        <h2>Edit set: <%=set.name%></h2>
+        <form id="flashCardForm" action="/flashcards/sets/editSet/<%=set._id%>" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="<%=set.name%>" required>
+            </div>
+            <div class="form-group">
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" value="<%=set.course%>" required>
+            </div>
+            <div class="form-group">
+                <label for="instructor">Instructor:</label>
+                <input type="text" id="instructor" name="instructor" value="<%=set.instructor%>" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<%- include('../partials/footer.ejs')%>

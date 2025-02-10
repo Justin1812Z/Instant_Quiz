@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs')%>
+
+    <section class="profile">
+      <h1>Welcome <%=user.firstName%> </h1>
+      <div class = "profile-sets-container">
+        <%if(sets.length) {%>
+            <h1 style="align-self: center;">Your sets</h1>
+            <%sets.forEach(set=>{%>
+                
+                <div class="profile-set">
+                    <a href="/flashcards/set/<%=set._id%>">
+                        <h2><%= set.name%></h2>
+                        <p>Course: <%= set.course%></p>
+                        <p>Instructor: <%= set.instructor%></p>
+                    </a>
+                    <div class="profile-button-container">
+                        <form>
+                            <button id="profile-view-button" type="submit" formmethod="GET" formaction="/flashcards/sets/<%=set._id%>">View</button>
+                        </form>
+                        <form>
+                            <button id="profile-delete-button" type ="submit" formmethod="POST" formaction="/flashcards/deleteSet/<%=set._id%>">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            
+           <% });
+        } else {%>
+            <p>There are no flashcard sets to display.</p>
+        <%}%>
+    </div>
+</section>
+
+
+<%- include('../partials/footer.ejs')%>
