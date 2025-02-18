@@ -287,13 +287,13 @@ function makeCards() {
     questionTexts = [...document.querySelectorAll('textarea.textarea_question_text[name="question_text"]')]
         .map(textarea => textarea.value.replace(/<[^>]*>/g, '').trim());
 
-    if (questionTexts.length === 0) {
-        console.log("using p");
-        questionTexts = [...document.querySelectorAll('div.question_text p')]
-            .map(p => p.innerText.replace(/<[^>]*>/g, '').trim());
-    }
+    // if (questionTexts.length === 0) {
+    //     console.log("using p");
+    //     questionTexts = [...document.querySelectorAll('div.question_text span')]
+    //         .map(span => span.innerText.replace(/<[^>]*>/g, '').trim());
+    // }
 
-    console.log(questionTexts);
+    
 } catch (error) {
     console.error("An error occurred while extracting text:", error);
 }
@@ -304,8 +304,12 @@ function makeCards() {
     card.answer = correctAnswerTitles[i];
     card.question = questionTexts[i];
     card.setId = setId;
-    console.log(card);
-    card.save();
+    if(card.answer && card.question && card.setId){
+      card.save();
+    } else {
+      console.log("incomplete card: " + card) 
+    }
+    
   }
   return set;
 }

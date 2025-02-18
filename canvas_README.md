@@ -1,4 +1,3 @@
-# Project-3
 
 # Getting Started
 
