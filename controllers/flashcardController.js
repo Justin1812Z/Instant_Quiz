@@ -126,6 +126,7 @@ exports.set = (req, res, next) => {
   const url = req.url;
   const arr = url.split("/");
   const setId = arr[arr.length - 1];
+
   cardModel
     .find({ setId: setId })
     .then((cards) => {
@@ -180,12 +181,12 @@ exports.deleteCard = (req, res, next) => {
 };
 
 exports.runPython = async (req, res, next) => {
-  const { username, password, url } = req.body;
+  // const { username, password, url } = req.body;
   const pythonProcess = spawn("python3", [
     "./canvas_program.py",
-    username,
-    password,
-    url,
+    // username,
+    // password,
+    // url,
   ]);
 
   pythonProcess.stdout.on("data", (data) => {
@@ -203,12 +204,13 @@ exports.runPython = async (req, res, next) => {
       let set = await makeCards();
       set.creator = req.session.user;
       await set.save();
+      let setName = set.name;
 
       // Render the page here
       cardModel
         .find({ setId: set.id })
         .then((cards) => {
-          res.render("./flashcards/flashcards", { cards });
+          res.render("./flashcards/flashcards", { setName, cards });
         })
         .catch((err) => next(err));
     } catch (err) {
