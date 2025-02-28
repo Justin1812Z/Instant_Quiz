@@ -6,6 +6,7 @@ const flashchardSchema = new Schema({
     setName: {type: String},
     question: {type: String},
     answer: {type: String},
+    correct: {type: Boolean}
 });
 
 module.exports = mongoose.model('Flashcards', flashchardSchema);

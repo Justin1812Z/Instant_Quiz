@@ -269,13 +269,19 @@ function makeCards() {
 
   // Select all div elements with the class "correct_answer"
   var divsWithCorrectAnswer = document.querySelectorAll("div.correct_answer");
+  var answerDivs = document.querySelectorAll("div.answer_for_");
 
   // Loop through each element and get the title attribute
   divsWithCorrectAnswer.forEach(function (div) {
     var title = div.getAttribute("title"); // Get the title attribute
-    if (title) {
+    var hasSelected = div.classList.contains("selected_answer");
+    var hasWrong = div.classList.contains("wrong_answer");
+
+    var answer = divsWithCorrectAnswer.querySelector(".answer_text")
+
+    if (answer) {
       // Check if the title attribute is not empty
-      correctAnswerTitles.push(title); // Add the title to the array
+      correctAnswerTitles.push(answer); // Add the title to the array
     }
   });
 
