@@ -204,13 +204,12 @@ exports.runPython = async (req, res, next) => {
       let set = await makeCards();
       set.creator = req.session.user;
       await set.save();
-      let setName = set.name;
 
       // Render the page here
       cardModel
         .find({ setId: set.id })
         .then((cards) => {
-          res.render("./flashcards/flashcards", { setName, cards });
+          res.render("./flashcards/flashcards", {  cards });
         })
         .catch((err) => next(err));
     } catch (err) {
@@ -264,6 +263,7 @@ function makeCards() {
   let setId;
   setId = set._id;
 
+
   // Create an array to hold the titles of divs with the class "correct_answer"
   var correctAnswerTitles = [];
 
@@ -306,7 +306,9 @@ function makeCards() {
     card.answer = correctAnswerTitles[i];
     card.question = questionTexts[i];
     card.setId = setId;
-    if(card.answer && card.question && card.setId){
+    card.setName = set.name;
+    
+    if(card.answer && card.question && card.setId  && card.setName){
       card.save();
     } else {
       console.log("incomplete card: " + card) 

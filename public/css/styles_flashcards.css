@@ -85,3 +85,8 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.title {
+    text-overflow: ellipsis;
+    color: black;
+}
