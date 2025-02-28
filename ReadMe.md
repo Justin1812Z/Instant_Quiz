@@ -5,10 +5,10 @@ Justin Zitel
 ## Developers
 - Justin Zitel
 
-## Final Presentation link
--https://youtu.be/3O30ncq8_7Q
 
 ## Getting Started
+- The extension required to automatically make flashcards is not yet publicly available, but the rest of the functionality is working.
+- Clone this repository
 - run 'npm install' in terminal
 - run in the terminal with "node app"
 
