@@ -126,6 +126,7 @@ exports.set = (req, res, next) => {
   const url = req.url;
   const arr = url.split("/");
   const setId = arr[arr.length - 1];
+
   cardModel
     .find({ setId: setId })
     .then((cards) => {
@@ -180,12 +181,12 @@ exports.deleteCard = (req, res, next) => {
 };
 
 exports.runPython = async (req, res, next) => {
-  const { username, password, url } = req.body;
+  // const { username, password, url } = req.body;
   const pythonProcess = spawn("python3", [
     "./canvas_program.py",
-    username,
-    password,
-    url,
+    // username,
+    // password,
+    // url,
   ]);
 
   pythonProcess.stdout.on("data", (data) => {
@@ -208,7 +209,7 @@ exports.runPython = async (req, res, next) => {
       cardModel
         .find({ setId: set.id })
         .then((cards) => {
-          res.render("./flashcards/flashcards", { cards });
+          res.render("./flashcards/flashcards", {  cards });
         })
         .catch((err) => next(err));
     } catch (err) {
@@ -262,18 +263,25 @@ function makeCards() {
   let setId;
   setId = set._id;
 
+
   // Create an array to hold the titles of divs with the class "correct_answer"
   var correctAnswerTitles = [];
 
   // Select all div elements with the class "correct_answer"
   var divsWithCorrectAnswer = document.querySelectorAll("div.correct_answer");
+  var answerDivs = document.querySelectorAll("div.answer_for_");
 
   // Loop through each element and get the title attribute
   divsWithCorrectAnswer.forEach(function (div) {
     var title = div.getAttribute("title"); // Get the title attribute
-    if (title) {
+    var hasSelected = div.classList.contains("selected_answer");
+    var hasWrong = div.classList.contains("wrong_answer");
+
+    var answer = divsWithCorrectAnswer.querySelector(".answer_text")
+
+    if (answer) {
       // Check if the title attribute is not empty
-      correctAnswerTitles.push(title); // Add the title to the array
+      correctAnswerTitles.push(answer); // Add the title to the array
     }
   });
 
@@ -287,13 +295,13 @@ function makeCards() {
     questionTexts = [...document.querySelectorAll('textarea.textarea_question_text[name="question_text"]')]
         .map(textarea => textarea.value.replace(/<[^>]*>/g, '').trim());
 
-    if (questionTexts.length === 0) {
-        console.log("using p");
-        questionTexts = [...document.querySelectorAll('div.question_text p')]
-            .map(p => p.innerText.replace(/<[^>]*>/g, '').trim());
-    }
+    // if (questionTexts.length === 0) {
+    //     console.log("using p");
+    //     questionTexts = [...document.querySelectorAll('div.question_text span')]
+    //         .map(span => span.innerText.replace(/<[^>]*>/g, '').trim());
+    // }
 
-    console.log(questionTexts);
+    
 } catch (error) {
     console.error("An error occurred while extracting text:", error);
 }
@@ -304,8 +312,14 @@ function makeCards() {
     card.answer = correctAnswerTitles[i];
     card.question = questionTexts[i];
     card.setId = setId;
-    console.log(card);
-    card.save();
+    card.setName = set.name;
+    
+    if(card.answer && card.question && card.setId  && card.setName){
+      card.save();
+    } else {
+      console.log("incomplete card: " + card) 
+    }
+    
   }
   return set;
 }

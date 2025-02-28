@@ -6,6 +6,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+import os
+import glob
+import shutil
+from pathlib import Path
+
+
 def login_with_session_cookies(username, password, url):
   
     webdriver_path = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
@@ -82,9 +88,33 @@ def login_with_session_cookies(username, password, url):
 # username = input("Ender your NinerNET username: ")
 # password = input("Enter your NinerNET password: ")
 
-username = sys.argv[1]
-password = sys.argv[2]
-url = sys.argv[3]
-login_with_session_cookies(username, password, url)
+# username = sys.argv[1]
+# password = sys.argv[2]
+# url = sys.argv[3]
+# login_with_session_cookies(username, password, url)
 
+
+def get_latest_download():
+    # Get the user's downloads folder dynamically
+    downloads_path = Path.home() / "Downloads"
+    
+    # Get list of all files in downloads folder sorted by modification time
+    files = sorted(glob.glob(str(downloads_path / "*")), key=os.path.getmtime, reverse=True)
+    
+    # Return the most recent file if there are any
+    return files[0] if files else None
+
+def copy_file_to_script_directory(file_path, new_name):
+    script_directory = Path.cwd()
+    destination = script_directory / new_name
+    shutil.copy(file_path, destination)
+    print(f"File copied to: {destination}")
+
+if __name__ == "__main__":
+    latest_file = get_latest_download()
+    if latest_file:
+        print(f"Most recently downloaded file: {latest_file}")
+        copy_file_to_script_directory(latest_file, "output_page.html")
+    else:
+        print("No files found in the Downloads folder.")
 

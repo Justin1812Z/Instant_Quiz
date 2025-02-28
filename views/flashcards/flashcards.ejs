@@ -7,7 +7,7 @@
     <main>
       <div id="container">
         <label>
-          <h2>Group 7 Demo</h2>
+          <h2 id="title">Error Loading Set Name</h2>
           <div>
             <strong>Start on back of card</strong>
             <md-checkbox id="showAnswerCheckbox" onclick="updateCard() "></md-checkbox>
@@ -29,6 +29,11 @@
 
       <script>
         var cards = <%-JSON.stringify(cards)%>;
+        var title = document.getElementById('title');
+        title.innerHTML = cards[0].setName;
+        console.log(cards);
+
+        // console.log(cards);
         var currentIndex = 0;
 
         function updateCard() {
@@ -59,7 +64,7 @@
               flashcard.addEventListener('transitionend', () => {
                 answerElement.textContent = cards[currentIndex].answer;
               });
-
+            
 
             }
           }
@@ -78,6 +83,10 @@
         function back() {
           currentIndex = (currentIndex - 1 + cards.length) % cards.length;
           updateCard();
+        }
+
+        function getSetName(){
+          return "testing";
         }
 
         document.addEventListener('DOMContentLoaded', function () {

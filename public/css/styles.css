@@ -305,6 +305,8 @@ button {
     color: #007bff;
     border: none;
     cursor: pointer;
+    margin-left: 45px;
+    margin-top: 10px;
 }
 
 button:disabled {
@@ -320,6 +322,7 @@ button:disabled {
     justify-content: space-between; /* Add space between items */
     margin: 0; /* Reset margin to ensure even spacing */
     padding: 10px; /* Reset padding to ensure even spacing */
+
 
 }
 .container {
@@ -376,10 +379,13 @@ button:disabled {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
 }
 
 .form-group {
     margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-group label {
@@ -572,3 +578,6 @@ footer {
     margin-top: 150px;
 }
 
+h2#title {
+    width: 500px;
+}
