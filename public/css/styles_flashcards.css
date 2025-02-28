@@ -58,18 +58,30 @@ body {
 
 .md-outlined-button{
     margin: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .md-filled-button{
     margin: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #buttons{
     display: flex;
     justify-content: flex-end;
     padding-top: 16px;
-    
+    width: 100%;
 }
 
 #buttons md-outlined-button {
     margin-right: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#buttons md-filled-button {
+    margin-right: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
